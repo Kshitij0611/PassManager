@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Manager = () => {
     const ref = useRef()
     const passwordRef = useRef()
-    // const [form, setform] = useState({ site: "", username: "", password: "" })
     const [form, setForm] = useState({ site: "", username:"", password: ''});
     const [passwordArray, setPasswordArray] = useState([])
 
@@ -50,7 +49,7 @@ const Manager = () => {
     }
 
     const savePassword = () => {
-        if(form.site.length >3 && form.username.length >3 &&form.password.length >3){
+        if(form.site.length>3 && form.username.length>3 &&form.password.length>3){
 
             setPasswordArray([...passwordArray, {...form, id: uuidv4()}])
             localStorage.setItem("passwords", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
@@ -58,9 +57,9 @@ const Manager = () => {
             setForm({ site: "", username: "", password: "" })
             toast('Password saved!', {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 5000,
             hideProgressBar: false,
-           // closeOnClick: true,
+            closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
@@ -70,8 +69,7 @@ const Manager = () => {
     else{
         toast('Error: Password not saved!');
     }
-
-    }
+ } 
 
     const deletePassword = (id) => {
         console.log("Deleting password with id ", id)
@@ -95,11 +93,9 @@ const Manager = () => {
 
 
     const editPassword = (id) => {
-         
         console.log("Editing password with id ", id)
         setForm(passwordArray.filter(i=>i.id===id)[0]) 
         setPasswordArray(passwordArray.filter(item=>item.id!==id)) 
-
     }
 
 
@@ -157,6 +153,7 @@ const Manager = () => {
                                 <th className='py-2'>Actions</th>
                             </tr>
                         </thead>
+
                         <tbody className='bg-green-100'>
                             {passwordArray.map((item, index) => {
                                 return <tr key={index}>
@@ -172,6 +169,7 @@ const Manager = () => {
                                             </div>
                                         </div>
                                     </td>
+
                                     <td className='py-2 border border-white text-center'>
                                         <div className='flex items-center justify-center '>
                                             <span>{item.username}</span>
@@ -183,10 +181,11 @@ const Manager = () => {
                                                 </lord-icon>
                                             </div>
                                         </div>
+
                                     </td>
                                     <td className='py-2 border border-white text-center'>
                                         <div className='flex items-center justify-center '>
-                                            <span>{item.password}</span>
+                                            <span>{"*".repeat(item.password.length)}</span>
                                             <div className='lordiconcopy size-7 cursor-pointer' onClick={() => { copyText(item.password) }}>
                                                 <lord-icon
                                                     style={{ "width": "25px", "height": "25px", "paddingTop": "3px", "paddingLeft": "3px" }}
@@ -196,6 +195,7 @@ const Manager = () => {
                                             </div>
                                         </div>
                                     </td>
+
                                     <td className='justify-center py-2 border border-white text-center'>
                                         <span className='cursor-pointer mx-1' onClick={()=>{editPassword(item.id)}}>
                                             <lord-icon

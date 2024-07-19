@@ -13,6 +13,7 @@ const Manager = () => {
     const getPasswords = async () => {
         let req = await fetch("http://localhost:3000/")
         let passwords = await req.json()
+        console.log(passwords)
         setPasswordArray(passwords)
     }
 
@@ -100,7 +101,7 @@ const Manager = () => {
     }
 
     const editPassword = (id) => {
-        setform({ ...passwordArray.filter(i => i.id === id)[0], id: id })
+        setform({...passwordArray.filter(i => i.id === id)[0], id: id })
         setPasswordArray(passwordArray.filter(item => item.id !== id))
     }
 
@@ -155,6 +156,7 @@ const Manager = () => {
                                 <th className='py-2'>Actions</th>
                             </tr>
                         </thead>
+
                         <tbody className='bg-green-100'>
                             {passwordArray.map((item, index) => {
                                 return <tr key={index}>
@@ -170,6 +172,7 @@ const Manager = () => {
                                             </div>
                                         </div>
                                     </td>
+
                                     <td className='py-2 border border-white text-center'>
                                         <div className='flex items-center justify-center '>
                                             <span>{item.username}</span>
@@ -182,6 +185,7 @@ const Manager = () => {
                                             </div>
                                         </div>
                                     </td>
+
                                     <td className='py-2 border border-white text-center'>
                                         <div className='flex items-center justify-center '>
                                             <span>{"*".repeat(item.password.length)}</span>
@@ -194,6 +198,7 @@ const Manager = () => {
                                             </div>
                                         </div>
                                     </td>
+                                    
                                     <td className='justify-center py-2 border border-white text-center'>
                                         <span className='cursor-pointer mx-1' onClick={() => { editPassword(item.id) }}>
                                             <lord-icon
